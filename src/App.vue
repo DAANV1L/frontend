@@ -12,18 +12,22 @@
     </div>
     
     <div class="content">
+      <router-view>
 
+      </router-view>
     </div>
   </div>
 </template>
 
 
 <script>
-
+//import LoginModuleVue from './components/LoginModule.vue';
 
 export default {
   name: 'App',
-  components: {},
+  components: {
+    //LoginModuleVue
+  },
   data() {
     return {};
   },
@@ -33,6 +37,7 @@ export default {
     },
     login() {
       console.log('Login');
+      this.$router.push('/LoginModule.vue');
     }
   }
 };
