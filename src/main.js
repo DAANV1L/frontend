@@ -1,8 +1,9 @@
-import Vue from 'vue'
-import App from './App.vue'
-
-Vue.config.productionTip = false
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router/index.js'; // Import the router instance
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  el: '#app',
+  router, // Pass the router instance to Vue
+  render: h => h(App)
+});

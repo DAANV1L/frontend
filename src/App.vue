@@ -1,4 +1,18 @@
 <template>
+  <div id="app">
+    <router-view></router-view>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'App',
+  // You can define any global components, mixins, or methods here
+}
+</script>
+
+
+<!-- <template>
   <div id="App">
     <div class="header">
         <div class="logo">CampSpot</div>
@@ -10,8 +24,9 @@
 
 
 <script>
-import homeModule from './components/homeModule.vue';
-import registerModule from './components/registerModule.vue';
+import homeModule from './views/homeModule.vue';
+import registerModule from './views/registerModule.vue';
+
 
 export default {
   name: 'App',
@@ -34,4 +49,4 @@ export default {
 
 </script>
 
-<style src="./components/main.css"/>
+<style src="./components/main.css"/> -->
