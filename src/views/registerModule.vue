@@ -1,13 +1,14 @@
 <template>
   <div>
+    <TopBannerVue/>
     <img src="../assets/frontpage.png" id="frontpageimage"/>
     <div class="LoginContainer">
       <form @submit.prevent="Register">
         <h2 id="RegisterText" style="margin: 10px;">Register</h2>
-        <input type="text" v-model="email" placeholder="Email" >
+        <input type="text" v-model="email" placeholder="Email" required>
         <input type="password" v-model="password" placeholder="Password" >
-        <input type="text" v-model="FirstName" placeholder="FirstName" >
-        <input type="text" v-model="LastName" placeholder="LastName" >
+        <input type="text" v-model="FirstName" placeholder="FirstName" required>
+        <input type="text" v-model="LastName" placeholder="LastName" required>
         <input type="text" v-model="DateOfBirth" placeholder="Date Of Birth" >
         <input type="text" v-model="Adress" placeholder="Adress" >
         <input type="text" v-model="Phonenumber" placeholder="Phonenumber" >
@@ -18,6 +19,7 @@
 </template>
 
 <script>
+import TopBannerVue from '../components/TopBanner.vue';
 export default {
   data() {
     return {
@@ -25,11 +27,14 @@ export default {
       password: ''
     }
   },
+  components: {
+    TopBannerVue
+  },
   methods: {
     Register() {
       // Handle Registration
-      console.log(`Logging in with username: ${this.email} and password: ${this.password}`);
-      
+      console.log("registeringggggg");
+      //let username = this.firstName + " " + this.lastName[0];
       
       //fetch
       fetch('https://localhost:7012/api/User', {
@@ -39,13 +44,13 @@ export default {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          email: "aa",//this.email, // Make sure this.email holds the intended value
-          userName: "test", // Replace with dynamic value if needed
-          firstName: "aa", //this.FirstName, // Make sure this.FirstName holds the intended value
-          lastName: "aa",//this.LastName, // Make sure this.LastName holds the intended value
-          password: "aa",//this.password, // Make sure this.password holds the intended value
-          address: "aa",//this.Address, // Make sure this.Address holds the intended value
-          phoneNumber: "aa",//this.Phonenumber // Make sure this.Phonenumber holds the intended value
+          email: this.email, 
+          userName: "aa", 
+          firstName: this.FirstName, 
+          lastName: this.LastName, 
+          password: 'aa', 
+          address: 'aa', 
+          phoneNumber: "aa" 
         })
       })
       .then(response => {

@@ -3,6 +3,15 @@
     height: 100%;
 }
 
+body {
+  margin: 0;
+}
+body #app{
+  margin: 0px;
+}
+.top-banner {
+  margin: 0;
+}
 .slideshow img {
     top: 0;
     left: 0;
