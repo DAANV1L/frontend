@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HomeView from "../views/homeModule.vue";
+import LoginView from "../views/LoginModule.vue";
 import RegisterView from "../views/registerModule.vue";
 import MainModule from "../views/MainModule.vue";
 
@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: HomeView
+    component: LoginView
   },
   {
     path: '/register',

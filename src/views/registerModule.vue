@@ -37,7 +37,7 @@ export default {
       //let username = this.firstName + " " + this.lastName[0];
       
       //fetch
-      fetch('https://localhost:7012/api/User', {
+      fetch('https://localhost:5001/api/User', {
         method: 'POST',
         headers: {
           'accept': 'application/json',
