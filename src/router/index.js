@@ -20,6 +20,11 @@ const routes = [
     path: '/',
     name: 'main',
     component: MainModule
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: () => import('../views/SearchModule.vue')
   }
 ];
 

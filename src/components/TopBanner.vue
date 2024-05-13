@@ -24,7 +24,7 @@ export default {
             this.$router.push({ name: 'main' });
         },
         SearchButtonClick() {
-            this.$router.push({ name: 'Search' });
+            this.$router.push({ name: 'search' });
         },
         BookingsButtonClick() {
             this.$router.push({ name: 'Bookings' });
