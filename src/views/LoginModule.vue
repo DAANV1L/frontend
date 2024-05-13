@@ -18,6 +18,12 @@
 import TopBannerVue from '../components/TopBanner.vue';
 
 export default {
+  mounted(){
+    
+    if(localStorage.getItem('token') != null){
+      this.$router.replace("/");
+    }
+  },
   components: {
     TopBannerVue
   },
@@ -29,12 +35,17 @@ export default {
   },
   methods: {
     async login() {
+      
+      const token = localStorage.getItem('token');
+      console.log(' token from localstarage',token);
+
+
       var emailpassword = this.Email + ":" + this.Password;
       console.log('----login----');
       emailpassword = btoa(emailpassword);
-      console.log(emailpassword);
       
-      await fetch('https://localhost:5001/api/User/Login', {
+      
+      var accestoken = await fetch('https://localhost:5001/api/User/Login', {
         method: 'POST',
         headers: {
           'accept': 'application/json',
@@ -45,18 +56,14 @@ export default {
       )
       })
         .then(response => {
-          console.log('access-control-allow-origin:', response.headers.get('access-control-allow-origin'));
-          console.log('content-type:', response.headers.get('content-type'));
-          console.log('date:', response.headers.get('date'));
-          console.log('server:', response.headers.get('server'));
-          document.cookie = response.text;
           return response.text();
         })
-        .then(data => console.log(data))
+        .then(data => {return data})
         .catch(error => console.error('Error:', error));
 
-            
+      localStorage.setItem('token', accestoken);
         }
+        
       }
     }
 
