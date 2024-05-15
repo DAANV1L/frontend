@@ -4,7 +4,7 @@
         <h1>
             Search your new Vacation now!
         </h1>
-        <div class="LocationsClass" style="display: flex; margin: 10px 10% 0 10%;" >
+        <div class="LocationsClass" style="display: flex; margin: 10px 10% 0 10%; flex-wrap: wrap;" >
             
         </div>
     </div>
@@ -28,8 +28,18 @@ export default {
         };
     },
     async mounted() {
-        this.CampingLocations = await this.fetchLocations();
+        try{
+            this.CampingLocations = await this.fetchLocations();
+        await new Promise(resolve => setTimeout(resolve, 300));
         this.CreateDivBlocks();
+        }
+        catch{
+            this.CampingLocations = await this.fetchLocations();
+        await new Promise(resolve => setTimeout(resolve, 300));
+        this.CreateDivBlocks();
+        }
+        
+        
     },
     methods: {
         async fetchLocations() {
@@ -61,8 +71,17 @@ export default {
                 block.appendChild(heading);
 
                 const description = document.createElement('p');
-                description.textContent = object.description;
+                const spaceIndex = object.description.indexOf(' ' , 110);
+                description.textContent = object.description.slice(0, spaceIndex) + ' ...';
                 block.appendChild(description);
+
+                const button = document.createElement('button');
+                button.className = 'LocationButton';
+                button.textContent = 'More Info';
+                button.onclick = () => {
+                    this.$router.push({ name: 'location', params: { id: object.id } });
+                };
+                block.appendChild(button);
 
                 this.$el.querySelector('.LocationsClass').appendChild(block);
             });

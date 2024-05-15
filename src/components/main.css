@@ -114,7 +114,8 @@ h1{
   margin-bottom: 24px;
 }
 .LocationBlockSeparateElement{
-  width: 30%;
+  min-width: 340px;
+  max-width: 340px;
   height: 500px;
   margin: 20px;
   background-color: lightblue;
@@ -131,6 +132,7 @@ h3{
   color: #2c3e50;
   font-style: bold;
   text-align: center;
+  margin: 10px;
 }
 
 p{
@@ -138,6 +140,7 @@ p{
   color: #2c3e50;
   font-style: bold;
   text-align: center;
+  margin: 10px;
 }
 
 .LocationSmallImage{
@@ -146,4 +149,16 @@ p{
   display: inline-block;
   margin-top: 20px;
   border-radius: 30px;
+}
+.LocationButton{
+  
+}
+
+p{
+  font-size: 15px;
+  color: #2c3e50;
+  font-style: bold;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+  margin: 10px;
 }
