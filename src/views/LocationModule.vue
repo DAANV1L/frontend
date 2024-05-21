@@ -1,9 +1,27 @@
 <template>
     <div>
         <TopBannerVue/>
-        <div id="blockplace">
-
-        </div>
+        <table style="width: 100%;">
+            <tr>
+                <th style="width: 45%;">
+                    <div id="blockplace" />
+                </th>
+                <th style="width: 55%; display: flex; align-items: center; ">
+                    <h2>
+                        Choose your dates now!
+                    </h2>
+                    <HotelDatePicker
+                    firstDayOfWeek="1"
+                    :bookings="bookingss"
+                    :disabledDates="disabledDates"
+                    />
+                </th>
+            </tr>
+        </table>
+        
+        
+        
+        
     </div>
 </template>
 
@@ -11,10 +29,21 @@
 <script>
 import TopBannerVue from "../components/TopBanner.vue"
 import axios from "axios";
+import HotelDatePicker from 'vue-hotel-datepicker'
+import 'vue-hotel-datepicker/dist/vueHotelDatepicker.css';
+
+
 
 export default {
+   data(){
+    return {
+        disabledDates: [],
+    }
+   },
     components: {
-        TopBannerVue
+        TopBannerVue,
+        HotelDatePicker
+        
     },
     async mounted() {
         console.log(this.$route.params.id)
@@ -34,7 +63,7 @@ export default {
         const img = new Image();
         img.className = 'LocationBigImage';
         img.src = object.imageData;
-        img.style.width = '30%';
+        img.style.width = '50%';
         img.justifyContent = 'center';
         block.appendChild(img);
         
@@ -49,7 +78,9 @@ export default {
 
 
         document.getElementById('blockplace').appendChild(block);
-        console.log(object)
+
+        var bookings = await this.fetchbookings()
+        this.displaybookings(bookings)
     },
     methods: {
         async fetchLocation() {
@@ -60,6 +91,31 @@ export default {
                 console.error('Failed to fetch location:', error);
                 return null; // Return null in case of error
             }
+        },
+        async fetchbookings() {
+            try {
+                const response = await axios.get('https://localhost:5001/api/Booking/GetBooking' + this.$route.params.id);
+                return response.data;
+            } catch (error) {
+                console.error('Failed to fetch bookings:', error);
+                return null; // Return null in case of error
+            }
+        },
+        displaybookings(bookings) {
+            const multipleDates = []
+            for (let i = 0; i < bookings.length; i++) {
+                const booking = bookings[i];
+                const amountofdays = booking['numberOfNights']
+                const Checkindate = booking['checkInDate']
+                for (let i = 0; i <= amountofdays; i++) {
+                    var date = new Date(Checkindate)
+                    date.setDate(date.getDate() + i)
+                    multipleDates.push(date.toISOString().split('T')[0])
+                }
+                
+            }
+            this.disabledDates = multipleDates;
+            
         }
     }
 }
