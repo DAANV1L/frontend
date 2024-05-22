@@ -18,7 +18,7 @@
                 </th>
                 <div>
                     <button @click="ClickOnBookButton" id="BookButton">
-                        Price Per night: {{ totalprice }} € Book now!
+                        Price Per night: {{ PricePerDay }} € Book now!
                     </button>
                     <p id="incaseofmistake">
 
@@ -38,6 +38,7 @@
 <script>
 import TopBannerVue from "../components/TopBanner.vue"
 import axios from "axios";
+// import { internalApiVersion } from "fullcalendar";
 import HotelDatePicker from 'vue-hotel-datepicker'
 import 'vue-hotel-datepicker/dist/vueHotelDatepicker.css';
 
@@ -47,8 +48,10 @@ export default {
    data(){
     return {
         disabledDates: [],
-        totalprice: 0,
+        PricePerDay: 0,
         number: 1,
+        uniqueid: -1,
+        locationName: "",
     }
    },
     components: {
@@ -57,7 +60,7 @@ export default {
         
     },
     async mounted() {
-        console.log(this.$route.params.id)
+
         var object = await this.fetchLocation()
         
         // create elements on the webpage
@@ -68,7 +71,8 @@ export default {
 
         //title
         const title = document.createElement('h1');
-        title.textContent = object.locationName;
+        this.locationName = object.locationName;
+        title.textContent = this.locationName;
         block.appendChild(title);
 
         const img = new Image();
@@ -83,10 +87,10 @@ export default {
         block.appendChild(description);
 
         const id = document.createElement('p');
-        id.textContent = "unique ID: "+object.id;
+        this.uniqueid = object.id;
+        id.textContent = "unique ID: "+this.uniqueid;
         block.appendChild(id);
-        console.log(object.pricePerNight)
-        this.totalprice = object.pricePerNight;
+        this.PricePerDay = object.pricePerNight;
 
 
         document.getElementById('blockplace').appendChild(block);
@@ -145,9 +149,8 @@ export default {
 
             const differenceInTime = endDateObj.getTime() - startDateObj.getTime();
             const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-            console.log(differenceInDays)
-        
-        }
+            this.$router.push({ name: 'BookingConfirmation', params: { id: this.uniqueid, startDate: startDate, endDate: endDate, price: this.PricePerDay, days: differenceInDays, locationID: this.$route.params.id, locationName: this.locationName}});
+        },
     }
 }
 </script>

@@ -30,6 +30,11 @@ const routes = [
     path: '/location/:id',
     name: 'location',
     component: () => import('../views/LocationModule.vue')
+  },
+  {
+    path: '/BookingConfirmation/:id',
+    name: 'BookingConfirmation',
+    component: () => import('../views/BookingConfirmationModule.vue')
   }
 ];
 
