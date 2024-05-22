@@ -11,11 +11,20 @@
                         Choose your dates now!
                     </h2>
                     <HotelDatePicker
-                    firstDayOfWeek="1"
-                    :bookings="bookingss"
+                    :firstDayOfWeek='number'
                     :disabledDates="disabledDates"
                     />
+                    
                 </th>
+                <div>
+                    <button @click="ClickOnBookButton" id="BookButton">
+                        Price Per night: {{ totalprice }} € Book now!
+                    </button>
+                    <p id="incaseofmistake">
+
+                    </p>
+                </div>
+                
             </tr>
         </table>
         
@@ -38,6 +47,8 @@ export default {
    data(){
     return {
         disabledDates: [],
+        totalprice: 0,
+        number: 1,
     }
    },
     components: {
@@ -74,7 +85,8 @@ export default {
         const id = document.createElement('p');
         id.textContent = "unique ID: "+object.id;
         block.appendChild(id);
-
+        console.log(object.pricePerNight)
+        this.totalprice = object.pricePerNight;
 
 
         document.getElementById('blockplace').appendChild(block);
@@ -115,7 +127,26 @@ export default {
                 
             }
             this.disabledDates = multipleDates;
-            
+        },
+        ClickOnBookButton(){
+            const dateInputs = document.querySelectorAll('[data-qa="vhd__datepickerInput"]');
+            const startDate = dateInputs[0].textContent.trim();
+            const endDate = dateInputs[1].textContent.trim();
+            //kijken als datum is ingevuld
+            if (startDate === 'Check-in' || endDate === 'Check-out') {
+                console.error('Please select both check-in and check-out dates');
+                const BookButton = document.getElementById('incaseofmistake');
+                BookButton.style.color = 'red';
+                BookButton.textContent = 'Please select both check-in and check-out dates';
+                return;
+            }
+            const startDateObj = new Date(startDate);
+            const endDateObj = new Date(endDate);
+
+            const differenceInTime = endDateObj.getTime() - startDateObj.getTime();
+            const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+            console.log(differenceInDays)
+        
         }
     }
 }
