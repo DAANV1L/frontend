@@ -25,7 +25,8 @@ export default {
   data() {
     return {
       Email: '',
-      Password: ''
+      Password: '',
+      cookie: ''
     }
   },
   methods: {
@@ -53,6 +54,16 @@ export default {
         .catch(error => console.error('Error:', error));
       
       document.cookie = accestoken;
+
+      this.cookie = JSON.parse(atob(document.cookie.split('.')[1].split('.')[0]))
+      console.log(this.cookie['sub'])
+      if (document.cookie != null){
+        this.$router.push({name: 'search'})
+      }
+
+      },
+      Register(){
+        this.$router.push({name: 'register'})
       }
     }
   }

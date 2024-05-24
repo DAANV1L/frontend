@@ -24,12 +24,15 @@ export default {
             this.$router.push({ name: 'main' });
         },
         SearchButtonClick() {
+            if (this.$route.name === 'search') return;
             this.$router.push({ name: 'search' });
         },
         BookingsButtonClick() {
-            this.$router.push({ name: 'Bookings' });
+            if (this.$route.name === 'bookings') return;
+            this.$router.push({ name: 'bookings' });
         },
         AccountButtonClick() {
+            if (this.$route.name === 'login') return;
             this.$router.push({ name: 'login' });
         }
     }
