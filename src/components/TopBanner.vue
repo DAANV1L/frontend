@@ -33,12 +33,9 @@ export default {
         },
         async AccountButtonClick() {
             if (document.cookie != ''){
-                try{
-                    this.$router.push({ name: 'account' });
-                }
-                catch{
-                    this.$router.push({ name: 'account' });
-                }
+                if (this.$route.name === 'account') return;
+                this.$router.push({ name: 'account' });
+                return;
                 
             }
             

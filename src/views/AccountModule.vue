@@ -8,11 +8,20 @@
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" v-model="username">
                 <label for="email">Email:</label>
+                <input type="text" id="firstName" name="firstName" v-model="firstName">
+                <label for="email">FirstName:</label>
                 <input type="text" id="email" name="email" v-model="email">
+                <label for="email">LastName:</label>
+                <input type="text" id="lastName" name="lastName" v-model="lastName">
                 <label for="phone">Phone number:</label>
                 <input type="text" id="phone" name="phone" v-model="phone">
                 <label for="address">Address:</label>
                 <input type="text" id="address" name="address" v-model="address" >
+                <label for="usertype">User Type:</label>
+                <select :value="userType">
+                    <option value="1">Home Owner</option>
+                    <option value="0">Default User</option>
+                </select>
                 <button @click="updateAccount" style="margin-top: 10px;">Update</button>
             </form>
         </div>
@@ -36,6 +45,9 @@ export default{
             email: '',
             phone: '',
             address: '',
+            firstName: '',
+            lastName: '',
+            userType: '',
             
         }
     },
@@ -53,6 +65,9 @@ export default{
         this.id = data.id;
         this.phone = data.phoneNumber;
         this.address = data.address;
+        this.firstName = data.firstName;
+        this.lastName = data.lastName;
+        this.userType = data.userType;
     },
     methods:{
         async getAccountInfo(){
@@ -68,7 +83,8 @@ export default{
         }
         ,
         async updateAccount(){
-            await fetch('https://localhost:5001/api/User/UpdateUser/' + this.id, {
+            console.log("update account")
+            await fetch('https://localhost:5001/api/User/Update?id='+this.id, {
                 method: 'PUT',
                 headers: {
                     'accept': 'application/json',
@@ -76,10 +92,13 @@ export default{
                     // 'Authorization': 'Bearer ' + document.cookie
                 },
                 body: JSON.stringify({
-                    username: this.username,
+                    address: this.address,
                     email: this.email,
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    password: "nofillin!",
                     phoneNumber: this.phone,
-                    address: this.address
+                    userName: this.username,
                 })
             })
             .then(response => {

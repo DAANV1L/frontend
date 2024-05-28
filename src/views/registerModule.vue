@@ -45,7 +45,7 @@ export default {
         },
         body: JSON.stringify({
           email: this.email, 
-          userName: "", 
+          userName: "Update this later", 
           firstName: this.FirstName, 
           lastName: this.LastName, 
           password: this.password, 
