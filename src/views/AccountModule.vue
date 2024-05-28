@@ -18,12 +18,16 @@
                 <label for="address">Address:</label>
                 <input type="text" id="address" name="address" v-model="address" >
                 <label for="usertype">User Type:</label>
-                <select :value="userType">
+                <select v-model="userType" @change="userTypeChange">
                     <option value="1">Home Owner</option>
                     <option value="0">Default User</option>
                 </select>
                 <button @click="updateAccount" style="margin-top: 10px;">Update</button>
+                <button @click="logoutbutton" style="margin-top: 10px;">
+                Logout
+                </button>
             </form>
+            
         </div>
     </div>
   </div>
@@ -99,6 +103,7 @@ export default{
                     password: "nofillin!",
                     phoneNumber: this.phone,
                     userName: this.username,
+                    userType: this.userType
                 })
             })
             .then(response => {
@@ -107,6 +112,13 @@ export default{
             .then(data => {
                 console.log(data);
             })
+        },
+        logoutbutton(){
+            document.cookie = '';
+            this.$router.push({ name: 'login' });
+        },
+        userTypeChange(){
+            
         }
     
     }

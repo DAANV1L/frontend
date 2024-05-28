@@ -7,8 +7,10 @@
             <button class="nav-item" @click="HomeButtonClick">Home</button>
             <button class="nav-item" @click="SearchButtonClick">Search</button>
             <button class="nav-item" @click="BookingsButtonClick">Bookings</button>
+            
         </div>
         <div class="right">
+            <button class="nav-item" @click="locationsButtonClick">Personal Locations</button>
             <button class="nav-item" @click="AccountButtonClick">Account</button>
         </div>
     </div>
@@ -41,6 +43,10 @@ export default {
             
             if (this.$route.name === 'login') return;
             this.$router.push({ name: 'login' });
+        },
+        locationsButtonClick() {
+            if (this.$route.name === 'personallocations') return;
+            this.$router.push({ name: 'personallocations' });
         }
     }
 }

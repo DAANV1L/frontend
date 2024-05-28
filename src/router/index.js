@@ -46,6 +46,16 @@ const routes = [
     path: '/profile',
     name: 'account',
     component: () => import('../views/AccountModule.vue')
+  },
+  {
+    path: '/personallocations',
+    name: 'personallocations',
+    component: () => import('../views/PersonalLocationsModule.vue')
+  },
+  {
+    path: '/personallocationsx/:id',
+    name: 'personallocationx',
+    component: () => import('../views/PersonalLocationChange.vue')
   }
 ];
 
