@@ -31,7 +31,17 @@ export default {
             if (this.$route.name === 'bookings') return;
             this.$router.push({ name: 'bookings' });
         },
-        AccountButtonClick() {
+        async AccountButtonClick() {
+            if (document.cookie != ''){
+                try{
+                    this.$router.push({ name: 'account' });
+                }
+                catch{
+                    this.$router.push({ name: 'account' });
+                }
+                
+            }
+            
             if (this.$route.name === 'login') return;
             this.$router.push({ name: 'login' });
         }

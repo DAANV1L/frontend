@@ -23,6 +23,14 @@
                     <p id="incaseofmistake">
 
                     </p>
+                    <h1>Reviews</h1>
+                    <ReviewComponent
+                        v-for="review in Reviews.filter(review => review.locationID == $route.params.id)"
+                        :Name="review.userID"
+                        :Stars="review.rating"
+                        :Description="review.review"
+                        :key="review.id"
+                    />
                 </div>
                 
             </tr>
@@ -38,10 +46,9 @@
 <script>
 import TopBannerVue from "../components/TopBanner.vue"
 import axios from "axios";
-// import { internalApiVersion } from "fullcalendar";
 import HotelDatePicker from 'vue-hotel-datepicker'
 import 'vue-hotel-datepicker/dist/vueHotelDatepicker.css';
-
+import ReviewComponent from '../components/ReviewComponent.vue'
 
 
 export default {
@@ -52,11 +59,13 @@ export default {
         number: 1,
         uniqueid: -1,
         locationName: "",
+        Reviews: [],
     }
    },
     components: {
         TopBannerVue,
-        HotelDatePicker
+        HotelDatePicker,
+        ReviewComponent
         
     },
     async mounted() {
@@ -97,6 +106,8 @@ export default {
 
         var bookings = await this.fetchbookings()
         this.displaybookings(bookings)
+        this.Reviews = await this.LoadReviews()
+        console.log(this.Reviews)
     },
     methods: {
         async fetchLocation() {
@@ -151,6 +162,15 @@ export default {
             const differenceInDays = differenceInTime / (1000 * 3600 * 24);
             this.$router.push({ name: 'BookingConfirmation', params: { id: this.uniqueid, startDate: startDate, endDate: endDate, price: this.PricePerDay, days: differenceInDays, locationID: this.$route.params.id, locationName: this.locationName}});
         },
+        async LoadReviews(){
+            try {
+                const Reviewresponse = axios.get('https://localhost:5001/api/Review');
+                return (await Reviewresponse).data;
+            } catch (error) {
+                console.error('Failed to fetch reviews:', error);
+                return null; // Return null in case of error
+            }
+        }
     }
 }
 </script>

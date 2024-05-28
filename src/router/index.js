@@ -36,6 +36,16 @@ const routes = [
     path: '/BookingConfirmation/:id',
     name: 'BookingConfirmation',
     component: () => import('../views/BookingConfirmationModule.vue')
+  },
+  {
+    path: '/bookings',
+    name: 'bookings',
+    component: () => import('../views/BookingsModule.vue')
+  },
+  {
+    path: '/profile',
+    name: 'account',
+    component: () => import('../views/AccountModule.vue')
   }
 ];
 

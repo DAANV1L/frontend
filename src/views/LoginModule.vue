@@ -53,7 +53,14 @@ export default {
         .then(data => {return data})
         .catch(error => console.error('Error:', error));
       
-      document.cookie = accestoken;
+      if (accestoken.includes("Unauthorized") ) {
+        alert("Invalid login")
+        return
+      }
+      else {
+        document.cookie = accestoken;
+      }
+      
 
       this.cookie = JSON.parse(atob(document.cookie.split('.')[1].split('.')[0]))
       console.log(this.cookie['sub'])
