@@ -4,6 +4,7 @@
     <div>
         <h1>Bookings</h1>
         <p>View all bookings here</p>
+        <p>{{ Info }}</p>
         <div> 
             <BookingsComponent
                 v-for="booking in bookings"
@@ -31,6 +32,7 @@ export default {
         return {
         id: -1,
         bookings: [],
+        Info: '',
         }
     },
     mounted() {
@@ -58,7 +60,10 @@ export default {
             .then(data => {
                 this.bookings = data;
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+                this.Info = 'Error fetching data please be slow and reload the page';
+            });
         },
         formatDate(date) {
             return new Date(date).toLocaleDateString();
@@ -74,8 +79,7 @@ export default {
             })
             .then(response => response.json())
             .then(data => {
-                const img = new Image();
-                img.src = data;
+                let img = new Image(data);
                 return img;
             })
             .catch(error => console.error('Error:', error));
