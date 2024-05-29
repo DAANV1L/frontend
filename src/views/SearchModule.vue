@@ -4,9 +4,18 @@
         <h1>
             Search your new Vacation now!
         </h1>
-        <div class="LocationsClass" style="display: flex; margin: 10px 10% 0 10%; flex-wrap: wrap;" >
-            
+        <div class="searchmodule" style=" width: 100%; height: 50px; display: flex; align-content: center; justify-content: center">
+            <!-- <label for="category">Choose category:</label> -->
+            <h3>Categories:</h3>
+            <select style="width: 200px; background-color: #639cd9; color: white" @change="AllowCategories" v-model="AllowCategoriesValue">
+                <option value="-1">All</option>
+                <option value="0">Forest</option>
+                <option value="1">Mountain</option>
+                <option value="2">Sea</option>
+                <option value="3">Lake</option>
+            </select>
         </div>
+        <div class="LocationsClass" style="display: flex; justify-content: center; flex-wrap: wrap;" ></div>
     </div>
 </template>
 
@@ -20,25 +29,23 @@ import axios from 'axios';
 export default {
     name: 'SearchModule',
     components: {
-        TopBannerVue
+        TopBannerVue,
     },
     data() {
         return {
-            CampingLocations: []
+            CampingLocations: [],
         };
     },
     async mounted() {
         try{
             this.CampingLocations = await this.fetchLocations();
         await new Promise(resolve => setTimeout(resolve, 300));
-        this.CreateDivBlocks();
         }
         catch{
             this.CampingLocations = await this.fetchLocations();
         await new Promise(resolve => setTimeout(resolve, 300));
-        this.CreateDivBlocks();
         }
-        
+        this.CreateDivBlocks(this.CampingLocations);
         
     },
     methods: {
@@ -51,8 +58,8 @@ export default {
                 return null; // Return null in case of error
             }
         },
-        CreateDivBlocks(){
-            this.CampingLocations.forEach((object) => {
+        CreateDivBlocks(aa){
+            aa.forEach((object) => {
                 const block = document.createElement('div');
                 block.className = 'LocationBlockSeparateElement';
                 try{
@@ -85,6 +92,18 @@ export default {
 
                 this.$el.querySelector('.LocationsClass').appendChild(block);
             });
+        },
+        AllowCategories(){
+            let NewCampingLocations;
+            this.$el.querySelector('.LocationsClass').innerHTML = '';
+            if (this.AllowCategoriesValue != -1){
+                NewCampingLocations = this.CampingLocations.filter((object) => object.categoryID == this.AllowCategoriesValue);
+                console.log(NewCampingLocations);
+            }
+            else{
+                NewCampingLocations = this.CampingLocations;
+            }
+            this.CreateDivBlocks(NewCampingLocations)
         }
     }
 }

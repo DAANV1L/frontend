@@ -21,7 +21,7 @@
             <option value="0">Forest</option>
             <option value="1">Mountain</option>
             <option value="2">Sea</option>
-            <option value="3">Lakehouse</option>
+            <option value="3">Lake</option>
         </select>
         <button type="submit" @click="submitinfoupdate" style="margin-top: 10px;">Submit</button>
         <button @click="deleteLocation" style="background-color: red; margin-top: 10px;">Delete</button>
