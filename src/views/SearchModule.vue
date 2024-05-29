@@ -7,7 +7,7 @@
         <div class="searchmodule" style=" width: 100%; height: 50px; display: flex; align-content: center; justify-content: center">
             <!-- <label for="category">Choose category:</label> -->
             <h3>Search on Name: </h3>
-            <input type="text" v-model="AllowSearchValue" @change="AllowCategories"  style="width: 200px; background-color: #639cd9; color: white">
+            <input type="text" v-model="AllowSearchValue" @input="AllowCategories" @click="removeinput" style="width: 200px; background-color: #639cd9; color: white">
             <h3>Categories:</h3>
             <select style="width: 200px; background-color: #639cd9; color: white" @change="AllowCategories" v-model="AllowCategoriesValue">
                 <option value="-1">All</option>
@@ -111,6 +111,9 @@ export default {
                 NewCampingLocations = NewCampingLocations.filter((object) => object.locationName.toLowerCase().includes(this.AllowSearchValue.toLowerCase()));
             }
             this.CreateDivBlocks(NewCampingLocations)
+        },
+        removeinput(){
+            this.AllowSearchValue = '';
         }
     }
 }
