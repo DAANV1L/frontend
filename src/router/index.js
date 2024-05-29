@@ -56,6 +56,10 @@ const routes = [
     path: '/personallocationsx/:id',
     name: 'personallocationx',
     component: () => import('../views/PersonalLocationChange.vue')
+  },
+  {
+    path: '*',
+    redirect: '/'
   }
 ];
 

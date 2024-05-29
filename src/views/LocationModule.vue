@@ -31,9 +31,10 @@
                         :Description="review.review"
                         :key="review.id"
                     />
-                    <button>
+                    <ReviewComponentAdd v-if="documenthascookies"
+                        :Name="personalcookieid">
                         Add Review
-                    </button>
+                    </ReviewComponentAdd>
                 </div>
                 
             </tr>
@@ -52,6 +53,7 @@ import axios from "axios";
 import HotelDatePicker from 'vue-hotel-datepicker'
 import 'vue-hotel-datepicker/dist/vueHotelDatepicker.css';
 import ReviewComponent from '../components/ReviewComponent.vue'
+import ReviewComponentAdd from '../components/ReviewComponentAdd.vue';
 
 
 export default {
@@ -63,16 +65,24 @@ export default {
         uniqueid: -1,
         locationName: "",
         Reviews: [],
+        personalcookieid: '',
     }
    },
     components: {
         TopBannerVue,
         HotelDatePicker,
-        ReviewComponent
+        ReviewComponent,
+        ReviewComponentAdd
         
     },
+    computed: {
+        documenthascookies(){
+            return document.cookie !== ''
+        }
+    },
     async mounted() {
-
+        this.cookie = JSON.parse(atob(document.cookie.split('.')[1].split('.')[0]))
+        this.personalcookieid = this.cookie['sub'].split(":")[1].split("=")[1]
         var object = await this.fetchLocation()
         
         // create elements on the webpage
