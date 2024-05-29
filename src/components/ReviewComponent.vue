@@ -1,7 +1,7 @@
 <template>
-  <div class="reviewview">
+  <div class="reviewview" style="background-color: #83acd7;">
     <p>BookersID: {{ Name }}</p>
-    <p>Stars: {{ Stars }}</p>
+    <p style="color: gold;">Stars: {{ Stars }} / 5</p>
     <p>review: {{ Description }}</p>
   </div>
 </template>

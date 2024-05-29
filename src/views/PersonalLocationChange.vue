@@ -16,9 +16,16 @@
         <label for="pricePerNight">Price Per Night:</label><br>
         <input type="number" id="pricePerNight" name="pricePerNight" v-model="pricePerNight"><br>
         <label for="categoryID">Category ID:</label><br>
-        <input type="number" id="categoryID" name="categoryID" v-model="categoryID"><br>
-        <button type="submit" @click="submitinfoupdate">Submit</button>
+        <!-- <input type="number" id="categoryID" name="categoryID" v-model="categoryID"><br> -->
+        <select v-model="categoryID" style="width: 170px;">
+            <option value="0">Forest</option>
+            <option value="1">Mountain</option>
+            <option value="2">Sea</option>
+            <option value="3">Lakehouse</option>
+        </select>
+        <button type="submit" @click="submitinfoupdate" style="margin-top: 10px;">Submit</button>
         <button @click="deleteLocation" style="background-color: red; margin-top: 10px;">Delete</button>
+        
         <p>{{ information }}</p>
       </form>
     </div>
