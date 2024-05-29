@@ -18,6 +18,7 @@
             </select>
         </div>
         <div class="LocationsClass" style="display: flex; justify-content: center; flex-wrap: wrap;" ></div>
+        <h3> {{ Info }}</h3>
     </div>
 </template>
 
@@ -38,6 +39,7 @@ export default {
             CampingLocations: [],
             AllowCategoriesValue: -1,
             AllowSearchValue: 'Search...',
+            Info: '',
         };
     },
     async mounted() {
@@ -58,6 +60,7 @@ export default {
                 const response = await axios.get('https://localhost:5001/api/Location');
                 return response.data;
             } catch (error) {
+                this.Info = 'Error fetching data please be slow and reload the page';
                 console.error(error);
             }
         },
