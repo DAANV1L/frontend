@@ -6,6 +6,8 @@
         </h1>
         <div class="searchmodule" style=" width: 100%; height: 50px; display: flex; align-content: center; justify-content: center">
             <!-- <label for="category">Choose category:</label> -->
+            <h3>Search on Name: </h3>
+            <input type="text" v-model="AllowSearchValue" @change="AllowCategories"  style="width: 200px; background-color: #639cd9; color: white">
             <h3>Categories:</h3>
             <select style="width: 200px; background-color: #639cd9; color: white" @change="AllowCategories" v-model="AllowCategoriesValue">
                 <option value="-1">All</option>
@@ -34,6 +36,8 @@ export default {
     data() {
         return {
             CampingLocations: [],
+            AllowCategoriesValue: -1,
+            AllowSearchValue: 'Search...',
         };
     },
     async mounted() {
@@ -54,8 +58,7 @@ export default {
                 const response = await axios.get('https://localhost:5001/api/Location');
                 return response.data;
             } catch (error) {
-                console.error('Failed to fetch locations:', error);
-                return null; // Return null in case of error
+                console.error(error);
             }
         },
         CreateDivBlocks(aa){
@@ -102,6 +105,10 @@ export default {
             }
             else{
                 NewCampingLocations = this.CampingLocations;
+            }
+            console.log(this.AllowSearchValue);
+            if (this.AllowSearchValue != ''){
+                NewCampingLocations = NewCampingLocations.filter((object) => object.locationName.toLowerCase().includes(this.AllowSearchValue.toLowerCase()));
             }
             this.CreateDivBlocks(NewCampingLocations)
         }
