@@ -113,12 +113,20 @@ export default{
                 console.log(data);
             })
         },
-        logoutbutton(){
-            document.cookie = '';
-            this.$router.push({ name: 'login' });
+        logoutbutton(event){
+            event.preventDefault();
+            this.removecookie();
+            
+
+            setTimeout(() => {
+                this.$router.push({ name: 'login' });
+            }, 1000);
         },
         userTypeChange(){
             
+        },
+        removecookie(){
+            document.cookie = '';
         }
     
     }

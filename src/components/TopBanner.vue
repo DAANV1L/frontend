@@ -10,7 +10,7 @@
             
         </div>
         <div class="right">
-            <button class="nav-item" @click="locationsButtonClick">Personal Locations</button>
+            <button v-if="CheckCookieState()" class="nav-item" @click="locationsButtonClick">Personal Locations</button>
             <button class="nav-item" @click="AccountButtonClick">Account</button>
         </div>
     </div>
@@ -47,6 +47,14 @@ export default {
         locationsButtonClick() {
             if (this.$route.name === 'personallocations') return;
             this.$router.push({ name: 'personallocations' });
+        },
+        CheckCookieState(){
+            if (document.cookie !== ''){
+                console.log('cookie is not empty');
+                return true;
+            }
+            console.log('cookie is empty');
+            return false;
         }
     }
 }
